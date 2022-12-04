@@ -12,6 +12,7 @@ class ParkingGarage:
     RTC_PIN = 15
     SERVO_PIN = 16
     LED_PIN = 18
+    STATUS = ''
 
     def __init__(self):
         """
@@ -92,14 +93,19 @@ class ParkingGarage:
         Opens the garage door using the servo motor
         A motor angle of 180 degrees corresponds to a fully open door
         """
-        pass
+        duty_cycle = (180/18) + 2
+        self.change_servo_angle(duty_cycle)
+        self.STATUS = 'OPENED'
 
     def close_garage_door(self) -> None:
         """
         Closes the garage door using the servo motor
         A motor angle of 0 degrees corresponds to a fully closed door
         """
-        pass
+        duty_cycle = (0/180) + 2
+        self.change_servo_angle(duty_cycle)
+        self.STATUS = 'CLOSED'
+
 
     def turn_light_on(self) -> None:
         """
@@ -123,3 +129,5 @@ class ParkingGarage:
         time.sleep(1)
         GPIO.output(self.SERVO_PIN, GPIO.LOW)
         self.pwm.ChangeDutyCycle(0)
+
+

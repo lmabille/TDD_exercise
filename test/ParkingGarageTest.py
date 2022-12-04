@@ -62,3 +62,11 @@ class ParkingGarageTest(unittest.TestCase):
         mock_rtc_day.return_value = 'MONDAY'
         fee = self.pg.calculate_parking_fee('10:15:08')
         self.assertEqual(5, fee)
+
+    def test_open_garage_door(self):
+        self.pg.open_garage_door()
+        self.assertEqual(self.pg.STATUS, 'OPENED')
+
+    def test_close_garage_door(self):
+        self.pg.close_garage_door()
+        self.assertEqual(self.pg.STATUS, 'CLOSED')
