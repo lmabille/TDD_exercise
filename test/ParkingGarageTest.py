@@ -70,3 +70,14 @@ class ParkingGarageTest(unittest.TestCase):
     def test_close_garage_door(self):
         self.pg.close_garage_door()
         self.assertEqual(self.pg.STATUS, 'CLOSED')
+
+    @patch.object(GPIO, 'input')
+    def test_turn_light_on(self, mock_input):
+        mock_input.side_effect = [34, 0, 52]
+        self.pg.turn_light_on()
+        self.assertEqual(self.pg.light_on, True)
+    @patch.object(GPIO, 'input')
+    def test_turn_light_off(self, mock_input):
+        mock_input.side_effect = [0, 0, 0]
+        self.pg.turn_light_on()
+        self.assertEqual(self.pg.light_on, False)

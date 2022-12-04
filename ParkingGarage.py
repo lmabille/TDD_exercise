@@ -13,6 +13,7 @@ class ParkingGarage:
     SERVO_PIN = 16
     LED_PIN = 18
     STATUS = ''
+    light_on = False
 
     def __init__(self):
         """
@@ -108,16 +109,18 @@ class ParkingGarage:
 
 
     def turn_light_on(self) -> None:
-        """
-        Turns on the smart lightbulb
-        """
-        pass
+        if self.get_occupied_spots() > 0:
+            GPIO.output(self.LED_PIN, True)
+            self.light_on = True
+
 
     def turn_light_off(self) -> None:
         """
         Turns off the smart lightbulb
         """
-        pass
+        if self.get_occupied_spots() == 0:
+            GPIO.output(self.LED_PIN, False)
+            self.light_on = False
 
     def change_servo_angle(self, duty_cycle):
         """
